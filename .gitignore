@@ -1,0 +1,42 @@
+
+# Eclipse IDE
+.classpath
+.project
+.settings/
+.metadata/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Visual Studio Code
+.vscode/
+
+# Maven build output
+target/
+
+# Compiled Java files
+*.class
+
+# Tomcat generated files
+work/
+temp/
+logs/
+
+# Log files
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini

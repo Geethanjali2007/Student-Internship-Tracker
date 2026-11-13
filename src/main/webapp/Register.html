@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Internship Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            min-height: 100vh;
+            padding: 35px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #172554 0%, #312e81 48%, #7c3aed 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 590px;
+            margin: auto;
+            padding: 36px 40px;
+            background: #ffffff;
+            border-radius: 22px;
+            box-shadow: 0 25px 70px rgba(10, 15, 50, 0.30);
+            animation: appear 0.5s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 17px;
+            background: linear-gradient(135deg, #312e81, #7c3aed);
+            color: white;
+            font-size: 25px;
+            font-weight: 800;
+            box-shadow: 0 7px 18px rgba(124, 58, 237, 0.22);
+        }
+
+        h1 {
+            text-align: center;
+            color: #172554;
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -0.6px;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            display: none;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 18px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+            min-width: 0;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #24304f;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .required {
+            color: #7c3aed;
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            padding: 12px 13px;
+            border: 1px solid #dbe2ef;
+            border-radius: 9px;
+            background: #f8fafc;
+            color: #172554;
+            font-family: inherit;
+            font-size: 13px;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        input:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.11);
+        }
+
+        .hint {
+            margin-top: 6px;
+            color: #94a3b8;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        #passwordMatchMessage {
+            min-height: 17px;
+            margin-top: 6px;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(100deg, #312e81, #7c3aed);
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 7px 18px rgba(124, 58, 237, 0.22);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .register-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 11px 24px rgba(124, 58, 237, 0.30);
+        }
+
+        .register-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0 18px;
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .bottom-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 20px;
+        }
+
+        .display-link {
+            color: #6d28d9;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .display-link:hover {
+            color: #4c1d95;
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 20px 12px;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 28px 22px;
+                border-radius: 17px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="logo">IT</div>
+
+        <h1>Create Your Account</h1>
+
+        <p class="subtitle">
+            Join the Internship &amp; Package Tracking Management System
+            <br>Track your applications, interviews and offers in one place.
+        </p>
+
+        <div id="errorMessage"
+             class="message error-message"
+             role="alert"
+             aria-live="polite"></div>
+
+        <form action="register" method="post" id="registrationForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="sid">Student ID <span class="required">*</span></label>
+                    <input type="number"
+                           id="sid"
+                           name="sid"
+                           min="1"
+                           step="1"
+                           placeholder="Enter student ID"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sname">Student Name <span class="required">*</span></label>
+                    <input type="text"
+                           id="sname"
+                           name="sname"
+                           maxlength="100"
+                           autocomplete="name"
+                           placeholder="Enter full name"
+                           required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="semail">Email Address <span class="required">*</span></label>
+                    <input type="email"
+                           id="semail"
+                           name="semail"
+                           maxlength="150"
+                           autocomplete="email"
+                           placeholder="Enter your email address"
+                           required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="saddr">Address</label>
+                    <input type="text"
+                           id="saddr"
+                           name="saddr"
+                           maxlength="250"
+                           autocomplete="street-address"
+                           placeholder="Enter your address">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="phno">Phone Number</label>
+                    <input type="tel"
+                           id="phno"
+                           name="phno"
+                           maxlength="15"
+                           pattern="[0-9+ -]{7,15}"
+                           title="Enter a valid phone number"
+                           placeholder="Enter your phone number"
+                           autocomplete="tel">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Create Password <span class="required">*</span></label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           minlength="8"
+                           maxlength="128"
+                           autocomplete="new-password"
+                           placeholder="Create password"
+                           required>
+
+                    <div class="hint">Use at least 8 characters.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                    <input type="password"
+                           id="confirmPassword"
+                           name="confirmPassword"
+                           minlength="8"
+                           maxlength="128"
+                           autocomplete="new-password"
+                           placeholder="Re-enter password"
+                           required>
+
+                    <div id="passwordMatchMessage" aria-live="polite"></div>
+                </div>
+
+            </div>
+
+            <button type="submit" class="register-button" id="registerButton">
+                Create Account &rarr;
+            </button>
+
+        </form>
+
+        <div class="divider">QUICK LINKS</div>
+
+        <div class="bottom-links">
+            <a class="display-link" href="display">View Student Records</a>
+            <a class="display-link" href="login.html">Already registered? Sign In</a>
+        </div>
+
+        <div class="footer">
+            Internship &amp; Package Tracking Management System
+        </div>
+
+    </main>
+
+    <script>
+        // Display registration errors returned by the existing servlet.
+        const params = new URLSearchParams(window.location.search);
+        const errorCode = params.get("error");
+        const errorBox = document.getElementById("errorMessage");
+
+        const errorMessages = {
+            empty: "Please fill in all required fields.",
+            invalidid: "Please enter a valid positive Student ID.",
+            invalidemail: "Please enter a valid email address.",
+            weakpassword: "Password must contain between 8 and 128 characters.",
+            passwordmismatch: "Passwords do not match. Please try again.",
+            emailexists: "This email is already registered. Please use another email.",
+            idexists: "This Student ID is already registered. Please use another ID.",
+            server: "Registration failed due to a server error. Please try again."
+        };
+
+        if (errorCode && errorMessages[errorCode]) {
+            errorBox.textContent = errorMessages[errorCode];
+            errorBox.style.display = "block";
+        }
+
+        const form = document.getElementById("registrationForm");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const passwordMatchMessage = document.getElementById("passwordMatchMessage");
+        const registerButton = document.getElementById("registerButton");
+
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (confirmPassword.length === 0) {
+                passwordMatchMessage.textContent = "";
+                passwordMatchMessage.style.color = "";
+                return true;
+            }
+
+            if (password !== confirmPassword) {
+                passwordMatchMessage.textContent = "Passwords do not match.";
+                passwordMatchMessage.style.color = "#b91c1c";
+                return false;
+            }
+
+            passwordMatchMessage.textContent = "Passwords match.";
+            passwordMatchMessage.style.color = "#15803d";
+            return true;
+        }
+
+        passwordInput.addEventListener("input", checkPasswordMatch);
+        confirmPasswordInput.addEventListener("input", checkPasswordMatch);
+
+        form.addEventListener("submit", function(event) {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                event.preventDefault();
+
+                passwordMatchMessage.textContent =
+                    "Passwords do not match. Please try again.";
+                passwordMatchMessage.style.color = "#b91c1c";
+
+                confirmPasswordInput.focus();
+                return;
+            }
+
+            // Prevent accidental double submissions.
+            registerButton.disabled = true;
+            registerButton.textContent = "Creating Account...";
+        });
+    </script>
+
+</body>
+</html>

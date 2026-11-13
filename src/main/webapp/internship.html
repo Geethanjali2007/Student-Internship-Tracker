@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Application Tracker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            margin: auto;
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            background: #93a8d8;
+            cursor: not-allowed;
+        }
+
+        .info {
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 6px;
+            background: #eff6ff;
+            color: #1e40af;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .required-note {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📋 Internship Application Tracker</h2>
+
+    <p class="subtitle">
+        Track your internship applications in one place.
+    </p>
+
+    <div class="info">
+        Your application will be associated with your logged-in student account.
+        You do not need to enter your Student ID manually.
+    </div>
+
+    <form action="internship" method="post" id="internshipForm">
+
+        <label for="companyName">Company Name *</label>
+        <input
+            type="text"
+            id="companyName"
+            name="companyName"
+            maxlength="150"
+            placeholder="Example: Infosys"
+            required>
+
+        <label for="roleName">Internship Role *</label>
+        <input
+            type="text"
+            id="roleName"
+            name="roleName"
+            maxlength="150"
+            placeholder="Example: Data Analyst Intern"
+            required>
+
+        <label for="applyDate">Application Date</label>
+        <input
+            type="date"
+            id="applyDate"
+            name="applyDate">
+
+        <label for="jobLocation">Job Location</label>
+        <input
+            type="text"
+            id="jobLocation"
+            name="jobLocation"
+            maxlength="100"
+            placeholder="Example: Hyderabad">
+
+        <label for="workMode">Work Mode</label>
+        <select id="workMode" name="workMode">
+            <option value="">Select Work Mode</option>
+            <option value="Remote">Remote / Work From Home</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="On-site">On-site</option>
+        </select>
+
+        <label for="stipend">Monthly Stipend (₹)</label>
+        <input
+            type="number"
+            id="stipend"
+            name="stipend"
+            min="0"
+            step="0.01"
+            placeholder="Example: 15000">
+
+        <label for="applicationStatus">Application Status</label>
+        <select id="applicationStatus" name="applicationStatus">
+            <option value="Applied">Applied</option>
+            <option value="Assessment">Assessment</option>
+            <option value="Interview">Interview</option>
+            <option value="Selected">Selected</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Withdrawn">Withdrawn</option>
+        </select>
+
+        <label for="applicationLink">Application Link</label>
+        <input
+            type="url"
+            id="applicationLink"
+            name="applicationLink"
+            maxlength="500"
+            placeholder="https://example.com/internship">
+
+        <label for="notes">Notes</label>
+        <textarea
+            id="notes"
+            name="notes"
+            rows="3"
+            maxlength="1000"
+            placeholder="Example: Assessment test pending"></textarea>
+
+        <p class="required-note">* Required fields</p>
+
+        <button type="submit" id="submitButton">
+            Save Internship Application
+        </button>
+
+    </form>
+
+    <a class="back-link" href="dashboard">
+        ← Back to Dashboard
+    </a>
+
+    <a class="back-link" href="internship-display">
+        View My Internship Applications
+    </a>
+
+</div>
+
+<script>
+    const form = document.getElementById("internshipForm");
+    const submitButton = document.getElementById("submitButton");
+
+    form.addEventListener("submit", function(event) {
+
+        const stipendInput = document.getElementById("stipend");
+        const stipendValue = stipendInput.value.trim();
+
+        if (stipendValue !== "" &&
+            (!Number.isFinite(Number(stipendValue)) ||
+             Number(stipendValue) < 0)) {
+
+            event.preventDefault();
+            alert("Please enter a valid non-negative stipend.");
+            stipendInput.focus();
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Saving Application...";
+    });
+</script>
+
+</body>
+</html>
